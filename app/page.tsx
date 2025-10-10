@@ -1,5 +1,3 @@
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
 import { WhyChooseUsSection } from "@/components/why-choose-us-section";
 import { CTASection } from "@/components/cta-section"
 import type { Property } from "@/lib/types";

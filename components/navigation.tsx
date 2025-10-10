@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { Menu, X, Globe } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
@@ -11,6 +12,7 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const { language, setLanguage, t } = useLanguage()
+  const pathname = usePathname()
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "ar" : "en")
@@ -40,42 +42,70 @@ export function Navigation() {
     { href: "/contact", label: t("Contact", "اتصل بنا") },
   ]
 
+  // Check if a nav item is active
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/"
+    }
+    return pathname.startsWith(href)
+  }
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-md border-border"
-          : "primary backdrop-blur-sm"
+          ? "bg-background/80 backdrop-blur-md border-b border-border"
+          : "backdrop-blur-sm"
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className={`w-10 h-10 md:w-20 md:h-20 xl:w-24 xl:h-24 ${!isScrolled ? "2xl:w-18 2xl:h-18" : "2xl:w-32 2xl:h-32"} rounded-full flex items-center justify-center`}>
+            <div
+              className={`w-10 h-10 md:w-20 md:h-20 xl:w-24 xl:h-24 ${
+                !isScrolled ? "2xl:w-18 2xl:h-18" : "2xl:w-32 2xl:h-32"
+              } rounded-full flex items-center justify-center transition-all duration-300`}
+            >
               <Image
                 alt="livora-logo"
                 width={200}
                 height={200}
-                src={isScrolled ? "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106294/PNG_in4gbc.png":"https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png"}
+                src={
+                  isScrolled
+                    ? "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106294/PNG_in4gbc.png"
+                    : "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png"
+                }
                 className="w-full h-full object-contain"
+                priority
               />
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`text-sm font-medium transition-colors ${
-                  isScrolled ? "hover:text-gold" : "text-off-white hover:text-gold"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const active = isActive(item.href)
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`text-sm font-medium transition-colors relative ${
+                    active
+                      ? "text-gold"
+                      : isScrolled
+                        ? "text-foreground hover:text-gold"
+                        : "text-off-white hover:text-gold"
+                  }`}
+                >
+                  {item.label}
+                  {/* Active indicator */}
+                  {active && (
+                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold rounded-full" />
+                  )}
+                </Link>
+              )
+            })}
             <Button
               variant="ghost"
               size="icon"
@@ -122,18 +152,31 @@ export function Navigation() {
               isScrolled ? "border-border" : "border-white/10"
             }`}
           >
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`block py-2.5 text-sm font-medium transition-colors ${
-                  isScrolled ? "hover:text-gold" : "text-off-white hover:text-gold"
-                }`}
-                onClick={() => setIsOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const active = isActive(item.href)
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`block py-2.5 text-sm font-medium transition-colors relative ${
+                    active
+                      ? "text-gold font-semibold"
+                      : isScrolled
+                        ? "text-foreground hover:text-gold"
+                        : "text-off-white hover:text-gold"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {/* Mobile active indicator */}
+                  {active && (
+                    <span className="absolute left-0 top-0 bottom-0 w-1 bg-gold rounded-r-full" />
+                  )}
+                  <span className={active ? "ltr:ml-4 rtl:mr-4" : ""}>
+                    {item.label}
+                  </span>
+                </Link>
+              )
+            })}
           </div>
         )}
       </div>

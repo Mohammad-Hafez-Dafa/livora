@@ -1,24 +1,26 @@
-"use client"
+"use client";
 
-import { PropertyCarousel } from "./property-carousel"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { MapPin } from "lucide-react"
-import { useLanguage } from "@/lib/language-context"
-import type { Property } from "@/lib/types"
-import Link from "next/link"
+import { PropertyCarousel } from "./property-carousel";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { MapPin } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
+import type { Property } from "@/lib/types";
+import Link from "next/link";
+import { formatPrice } from "@/lib/format-currency";
 
 interface PropertyCardProps {
-  property: Property
+  property: Property;
 }
 
 export function PropertyCard({ property }: PropertyCardProps) {
-  const { language } = useLanguage()
+  const { language } = useLanguage();
 
-  const title = language === "en" ? property.title : property.titleAr
-  const location = language === "en" ? property.location : property.locationAr
-  const price = language === "en" ? property.price : property.priceAr
-  const description = language === "en" ? property.description : property.descriptionAr
+  const title = language === "en" ? property.title : property.titleAr;
+  const location = language === "en" ? property.location : property.locationAr;
+  const price = language === "en" ? property.price : property.priceAr;
+  const description =
+    language === "en" ? property.description : property.descriptionAr;
 
   return (
     <div className="bg-card rounded-lg overflow-hidden border border-border hover:shadow-lg transition-shadow h-full flex flex-col">
@@ -38,15 +40,23 @@ export function PropertyCard({ property }: PropertyCardProps) {
           </div>
         </div>
 
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 leading-relaxed flex-1">{description}</p>
+        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 leading-relaxed flex-1">
+          {description}
+        </p>
 
         <div className="flex flex-col sm:flex-row sm:items-center gap-y-3 justify-between pt-4 border-t border-border mt-auto">
-          <div className="font-serif text-2xl font-bold text-gold">{price} {property.currency}</div>
-          <Button asChild size="sm" className="bg-primary text-off-white hover:bg-primary/90">
+          <div className="font-serif text-2xl font-bold text-gold">
+            {formatPrice(price as number, property.currency, language)}
+          </div>
+          <Button
+            asChild
+            size="sm"
+            className="bg-primary text-off-white hover:bg-primary/90"
+          >
             <Link href={`/projects/${property.id}`}>View Details</Link>
           </Button>
         </div>
       </div>
     </div>
-  )
+  );
 }

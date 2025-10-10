@@ -1,15 +1,22 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { Urbanist } from "next/font/google";
+import { Urbanist, Cairo } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/language-context";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { Analytics } from "@vercel/analytics/next"
 
 const urbanist = Urbanist({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-urbanist",
+});
+
+const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-cairo",
 });
 
 export const metadata: Metadata = {
@@ -148,7 +155,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${urbanist.variable} antialiased`}>
+    <html lang="en" className={`${urbanist.variable} ${cairo.variable} antialiased`}>
       <head>
         {/* Additional meta tags for Arabic support */}
         <meta httpEquiv="Content-Language" content="en, ar" />
@@ -171,8 +178,8 @@ export default function RootLayout({
       </head>
       <body>
         <LanguageProvider>
+          <Analytics/>
           <Navigation />
-
           {children}
           <Footer />
         </LanguageProvider>

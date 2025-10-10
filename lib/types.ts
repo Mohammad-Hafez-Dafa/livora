@@ -14,6 +14,7 @@ export interface Property {
   featuresAr?: string[]
   paymentPlans?: string
   paymentPlansAr?: string
+  amenities?: string[];
   developer?: string
   type: string;
   currency: string;
