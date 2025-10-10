@@ -45,7 +45,7 @@ export function HeroSection() {
             <Button
               asChild
               size="lg"
-              className="bg-accent text-primary hover:bg-accent/90 text-base md:text-lg px-6 md:px-8 flex-1"
+              className="bg-accent text-primary hover:bg-accent/90 text-base md:text-lg py-1.5 px-6 md:px-8 flex-1"
             >
               <Link href="/projects" className="flex items-center justify-center">
                 {t("View Projects", "عرض المشروعات")}
@@ -56,7 +56,7 @@ export function HeroSection() {
               asChild
               size="lg"
               variant="outline"
-              className="border-off-white text-off-white hover:bg-off-white hover:text-primary text-base md:text-lg px-6 md:px-8 bg-transparent flex-1"
+              className="border-off-white text-off-white hover:bg-off-white hover:text-primary text-base md:text-lg py-1.5 px-6 md:px-8 bg-transparent flex-1"
             >
               <Link href="/contact" className="flex items-center justify-center">
                 {t("Contact an Expert", "تواصل مع خبير")}
