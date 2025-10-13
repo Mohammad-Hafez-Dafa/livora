@@ -104,9 +104,10 @@
   flex-direction: row-reverse;
 }
 
-/* Smooth scrolling */
+/* Enhanced smooth scrolling with scroll snap */
 html {
   scroll-behavior: smooth;
+  /* scroll-snap-type: y mandatory; */
 }
 
 /* Custom scrollbar */

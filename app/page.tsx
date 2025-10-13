@@ -1,5 +1,5 @@
 import { WhyChooseUsSection } from "@/components/why-choose-us-section";
-import { CTASection } from "@/components/cta-section"
+import { CTASection } from "@/components/cta-section";
 import type { Property } from "@/lib/types";
 import { HeroSection } from "@/components/hero-sections";
 import { FeaturedPropertiesCarousel } from "@/components/featured-properties-carousel";
@@ -11,9 +11,11 @@ export default async function HomePage() {
     <div className="min-h-screen">
       <HeroSection />
       <StatsSection />
-      <div className="container mx-auto px-4 py-16 md:py-24 bg-background">
-        <FeaturedPropertiesCarousel properties={featuredProperties} />
-      </div>
+      <section className="px-4 py-16 md:py-24 bg-card">
+        <div className="container mx-auto">
+          <FeaturedPropertiesCarousel properties={featuredProperties} />
+        </div>
+      </section>
       <WhyChooseUsSection />
       <CTASection />
     </div>

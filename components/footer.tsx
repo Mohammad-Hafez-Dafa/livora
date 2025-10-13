@@ -29,22 +29,29 @@ export function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="bg-primary text-off-white">
+    <footer className="bg-primary/95 text-off-white">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center">
+              <div className="w-20 h-20 bg-accent p-0 rounded-full flex items-center justify-center">
               <Image alt="livora-logo" width={200} height={200} src={`https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106294/PNG_in4gbc.png`}/>
               </div>
             </div>
             <p className="text-sm text-off-white/80 leading-relaxed">
               {t(
-                "From Cairo to Dubai — Your Real Estate Journey Starts Here",
-                "من القاهرة إلى دبي - رحلتك العقارية تبدأ هنا"
+                "From Cairo to Dubai",
+                "من القاهرة إلى دبي"
               )}
             </p>
+                        <p className="text-sm text-off-white/80 leading-relaxed">
+              {t(
+                "Your Real Estate Journey Starts Here",
+                "رحلتك العقارية تبدأ هنا"
+              )}
+            </p>
+
           </div>
 
           {/* Quick Links */}
