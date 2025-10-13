@@ -28,16 +28,27 @@ export function FeaturedPropertiesCarousel({ properties }: FeaturedPropertiesCar
 
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return
     setCanScrollPrev(emblaApi.canScrollPrev())
     setCanScrollNext(emblaApi.canScrollNext())
+    setSelectedIndex(emblaApi.selectedScrollSnap())
   }, [emblaApi])
+
+  const scrollTo = useCallback(
+    (index: number) => {
+      if (emblaApi) emblaApi.scrollTo(index)
+    },
+    [emblaApi]
+  )
 
   useEffect(() => {
     if (!emblaApi) return
     onSelect()
+    setScrollSnaps(emblaApi.scrollSnapList())
     emblaApi.on("select", onSelect)
     emblaApi.on("reInit", onSelect)
     return () => {
@@ -51,14 +62,14 @@ export function FeaturedPropertiesCarousel({ properties }: FeaturedPropertiesCar
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex gap-6">
           {properties.map((property) => (
-            <div key={property.id} className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.333%]">
+            <div key={property.id} className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.333%] bg-card p-1">
               <PropertyCard property={property} />
             </div>
           ))}
         </div>
       </div>
 
-      {/* Navigation Buttons */}
+      {/* Navigation Buttons - Hidden on small screens */}
       {canScrollPrev && (
         <Button
           variant="outline"
@@ -79,6 +90,22 @@ export function FeaturedPropertiesCarousel({ properties }: FeaturedPropertiesCar
           <ChevronRight className="h-5 w-5" />
         </Button>
       )}
+
+      {/* Bullet Indicators - Show on small screens, hide on md+ */}
+      <div className="flex justify-center gap-2 mt-6 md:hidden">
+        {scrollSnaps.map((_, index) => (
+          <button
+            key={index}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === selectedIndex
+                ? "bg-gold w-8"
+                : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+            }`}
+            onClick={() => scrollTo(index)}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </div>
   )
 }

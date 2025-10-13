@@ -87,7 +87,7 @@ export function WhyChooseUsSection({ lang = "en" }: WhyChooseUsSectionProps) {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`text-center p-6 rounded-lg hover:bg-accent/5 transition-all duration-700 ${
+              className={`text-center p-6 rounded-lg hover:bg-accent/5 transition-all duration-900 ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-12"

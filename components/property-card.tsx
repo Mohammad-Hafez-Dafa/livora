@@ -23,7 +23,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
     language === "en" ? property.description : property.descriptionAr;
 
   return (
-    <div className="bg-card rounded-lg overflow-hidden border border-border hover:shadow-lg transition-shadow h-full flex flex-col">
+    <div className="bg-card rounded-lg overflow-hidden border border-border shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
       <PropertyCarousel images={property?.images} alt={title} />
 
       <div className="p-6 flex flex-col flex-1">
