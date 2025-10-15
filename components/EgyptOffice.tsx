@@ -15,14 +15,14 @@ const EgyptOffice = () => {
           <MapPin className="h-6 w-6 text-gold flex-shrink-0 mt-1" />
           <div>
             <p className="font-medium mb-1">{t("Address", "العنوان")}</p>
-            <p className="text-muted-foreground">Alexandria, Egypt</p>
+            <p className="text-muted-foreground line-clamp-1">Alexandria, Egypt</p>
           </div>
         </div>
         <div className="flex items-start gap-4">
           <Phone className="h-6 w-6 text-gold flex-shrink-0 mt-1" />
           <div>
             <p className="font-medium mb-1">{t("Phone", "الهاتف")}</p>
-            <a href="+20 10 55 11 99 2701" className="text-muted-foreground ">
+            <a href="+20 10 55 11 99 2701" className="text-muted-foreground line-clamp-1">
               <span dir="ltr">+20 10 55 11 99 2701</span>
             </a>
           </div>
@@ -35,7 +35,7 @@ const EgyptOffice = () => {
             </p>
             <a
               href="mailto:Info@livoraproperties.com"
-              className="text-muted-foreground "
+              className="text-muted-foreground line-clamp-1"
             >
               <span>Info@livoraproperties.com</span>
             </a>

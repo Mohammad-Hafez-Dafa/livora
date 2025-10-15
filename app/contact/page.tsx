@@ -91,7 +91,7 @@ export default function ContactPage() {
                   {t("Dubai Office Location", "موقع مكتب دبي")}
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Business Bay, Dubai, UAE
+                  Business Bay, Dubai
                 </p>
               </div>
             </div>

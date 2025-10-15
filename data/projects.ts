@@ -126,7 +126,7 @@ export const mockProperties: Property[] = [
     id: "5",
     title: "Downtown Dubai Apartment",
     titleAr: "شقة في وسط دبي",
-    location: "Downtown Dubai, UAE",
+    location: "Downtown Dubai",
     locationAr: "وسط دبي، الإمارات",
     city: "dubai",
     price: 3200000,

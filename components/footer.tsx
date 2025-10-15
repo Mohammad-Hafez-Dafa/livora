@@ -105,11 +105,11 @@ export function Footer() {
                 <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
                 <span>Alexandria, Egypt</span>
               </li>
-              <li className="flex items-center gap-2 text-sm">
+              <li className="flex items-center gap-2 text-sm line-clamp-1">
                 <Phone className="h-4 w-4 flex-shrink-0" />
                 <span>+20 10 55 11 99 2701</span>
               </li>
-              <li className="flex items-center gap-2 text-sm">
+              <li className="flex items-center gap-2 text-sm line-clamp-1">
                 <Mail className="h-4 w-4 flex-shrink-0" />
                 <span>Info@livoraproperties.com</span>
               </li>
@@ -122,15 +122,15 @@ export function Footer() {
               {t("Dubai Office", "مكتب دبي")}
             </h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-2 text-sm">
+              <li className="flex items-start gap-2 text-sm line-clamp-1">
                 <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
-                <span>Business Bay, Dubai, UAE</span>
+                <span>Business Bay, Dubai</span>
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <Phone className="h-4 w-4 flex-shrink-0" />
                 <span>+971 54 2522 769</span>
               </li>
-              <li className="flex items-center gap-2 text-sm">
+              <li className="flex items-center gap-2 text-sm line-clamp-1">
                 <Mail className="h-4 w-4 flex-shrink-0" />
                 <span>Info@livoraproperties.com</span>
               </li>

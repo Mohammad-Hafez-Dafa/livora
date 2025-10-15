@@ -14,7 +14,7 @@ const DubaiOffice = () => {
           <MapPin className="h-6 w-6 text-gold flex-shrink-0 mt-1" />
           <div>
             <p className="font-medium mb-1">{t("Address", "العنوان")}</p>
-            <p className="text-muted-foreground">Business Bay, Dubai, UAE</p>
+            <p className="text-muted-foreground">Business Bay, Dubai</p>
           </div>
         </div>
         <div className="flex items-start gap-4">
