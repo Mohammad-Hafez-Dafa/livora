@@ -309,6 +309,14 @@ export default function ProjectDetailsPage() {
                       <span dir="ltr">+20 10 55 11 99 2701</span>
                     </a>
                     <a
+                      href="tel:+971 54 2522 769"
+                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors"
+                    >
+                      <Phone className="h-5 w-5 text-gold" />
+                      <span dir="ltr">+971 54 2522 769</span>
+                    </a>
+
+                    <a
                       href="mailto:Info@livoraproperties.com"
                       className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors"
                     >
