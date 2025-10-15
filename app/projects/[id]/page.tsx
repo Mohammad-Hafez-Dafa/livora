@@ -302,7 +302,7 @@ export default function ProjectDetailsPage() {
 
                   <div className="space-y-4 mb-6">
                     <a
-                      href="+20 10 55 11 99 2701"
+                      href="tel:+20 10 55 11 99 2701"
                       className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <Phone className="h-5 w-5 text-gold" />

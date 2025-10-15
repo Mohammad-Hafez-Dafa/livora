@@ -21,7 +21,7 @@ const DubaiOffice = () => {
           <Phone className="h-6 w-6 text-gold flex-shrink-0 mt-1" />
           <div>
             <p className="font-medium mb-1">{t("Phone", "الهاتف")}</p>
-            <a href="+971 54 2522 769" className="text-muted-foreground ">
+            <a href="tel:+971 54 2522 769" className="text-muted-foreground ">
               <span dir="ltr">+971 54 2522 769</span>
             </a>
           </div>
