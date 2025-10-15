@@ -20,8 +20,8 @@ export default function AboutPage() {
       icon: Award,
       title: t("Expertise", "الخبرة"),
       description: t(
-        "15+ years of experience in Cairo and Dubai real estate markets",
-        "أكثر من 15 عامًا من الخبرة في أسواق العقارات في القاهرة ودبي"
+        "5+ years of experience in Cairo and Dubai real estate markets",
+        "أكثر من 5 عامًا من الخبرة في أسواق العقارات في القاهرة ودبي"
       ),
     },
     {
@@ -62,8 +62,8 @@ export default function AboutPage() {
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 {t(
-                  "Livora Properties is a real estate consultancy connecting investors and homeowners with premium opportunities across Cairo and Dubai. With over 15 years of experience, we have established ourselves as trusted advisors in the region's most dynamic real estate markets.",
-                  "ليفورا العقارية هي شركة استشارات عقارية تربط المستثمرين وأصحاب المنازل بالفرص المميزة في القاهرة ودبي. مع أكثر من 15 عامًا من الخبرة، أثبتنا أنفسنا كمستشارين موثوقين في أكثر أسواق العقارات ديناميكية في المنطقة."
+                  "Livora Properties is a real estate consultancy connecting investors and homeowners with premium opportunities across Cairo and Dubai. With over 5 years of experience, we have established ourselves as trusted advisors in the region's most dynamic real estate markets.",
+                  "ليفورا العقارية هي شركة استشارات عقارية تربط المستثمرين وأصحاب المنازل بالفرص المميزة في القاهرة ودبي. مع أكثر من 5 عامًا من الخبرة، أثبتنا أنفسنا كمستشارين موثوقين في أكثر أسواق العقارات ديناميكية في المنطقة."
                 )}
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">

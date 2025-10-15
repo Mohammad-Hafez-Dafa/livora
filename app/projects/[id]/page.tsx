@@ -302,18 +302,18 @@ export default function ProjectDetailsPage() {
 
                   <div className="space-y-4 mb-6">
                     <a
-                      href="tel:+201234567890"
+                      href="+20 10 55 11 99 2701"
                       className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <Phone className="h-5 w-5 text-gold" />
-                      <span dir="ltr">+20 123 456 7890</span>
+                      <span dir="ltr">+20 10 55 11 99 2701</span>
                     </a>
                     <a
-                      href="mailto:info@livora.com"
+                      href="mailto:Info@livoraproperties.com"
                       className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <Mail className="h-5 w-5 text-gold" />
-                      <span>info@livora.com</span>
+                      <span>Info@livoraproperties.com</span>
                     </a>
                   </div>
 

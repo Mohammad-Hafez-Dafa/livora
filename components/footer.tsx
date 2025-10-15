@@ -41,8 +41,8 @@ export function Footer() {
             </div>
             <p className="text-sm text-off-white/80 leading-relaxed">
               {t(
-                "From Cairo to Dubai",
-                "من القاهرة إلى دبي"
+                "From Dubai to Cairo",
+                "من دبي إلى القاهرة"
               )}
             </p>
                         <p className="text-sm text-off-white/80 leading-relaxed">
@@ -98,20 +98,20 @@ export function Footer() {
           {/* Contact Cairo */}
           <div>
             <h3 className="font-serif text-lg font-bold mb-6 text-accent">
-              {t("Cairo Office", "مكتب القاهرة")}
+              {t("Egypt Office", "مكتب مصر")}
             </h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm">
                 <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
-                <span>New Cairo, Egypt</span>
+                <span>Alexandria, Egypt</span>
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>+20 XXX XXX XXXX</span>
+                <span>+20 10 55 11 99 2701</span>
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <span>cairo@livora.com</span>
+                <span>Info@livoraproperties.com</span>
               </li>
             </ul>
           </div>
@@ -124,15 +124,15 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm">
                 <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
-                <span>Dubai Marina, UAE</span>
+                <span>Business Bay, Dubai, UAE</span>
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <Phone className="h-4 w-4 flex-shrink-0" />
-                <span>+971 XX XXX XXXX</span>
+                <span>+971 54 2522 769</span>
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <span>dubai@livora.com</span>
+                <span>Info@livoraproperties.com</span>
               </li>
             </ul>
           </div>

@@ -23,8 +23,8 @@ export function WhyChooseUsSection({ lang = "en" }: WhyChooseUsSectionProps) {
       icon: Award,
       titleEn: "Expertise",
       titleAr: "الخبرة",
-      descriptionEn: "15+ years in Cairo and Dubai markets",
-      descriptionAr: "15+ سنة في أسواق القاهرة ودبي",
+      descriptionEn: "5+ years in Cairo and Dubai markets",
+      descriptionAr: "5+ سنة في أسواق القاهرة ودبي",
     },
     {
       icon: TrendingUp,
@@ -102,7 +102,7 @@ export function WhyChooseUsSection({ lang = "en" }: WhyChooseUsSectionProps) {
               <h3 className="font-serif text-lg md:text-xl font-bold mb-2">
                 {lang === "ar" ? feature.titleAr : feature.titleEn}
               </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2">
                 {lang === "ar" ? feature.descriptionAr : feature.descriptionEn}
               </p>
             </div>

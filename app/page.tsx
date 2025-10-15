@@ -100,10 +100,10 @@ async function getFeaturedProperties(): Promise<Property[]> {
 export const metadata = {
   title: "Livora - Luxury Real Estate in Cairo & Dubai",
   description:
-    "From Cairo to Dubai — Your Real Estate Journey Starts Here. Discover premium properties and investment opportunities.",
+    "From Dubai to Cairo — Your Real Estate Journey Starts Here. Discover premium properties and investment opportunities.",
   openGraph: {
     title: "Livora - Luxury Real Estate in Cairo & Dubai",
-    description: "From Cairo to Dubai — Your Real Estate Journey Starts Here",
+    description: "From Dubai to Cairo — Your Real Estate Journey Starts Here",
     images: ["/luxury-skyline-cairo-dubai.jpg"],
   },
 };

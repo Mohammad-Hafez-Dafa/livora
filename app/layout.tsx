@@ -21,7 +21,7 @@ const cairo = Cairo({
 
 export const metadata: Metadata = {
   title: {
-    default: "Livora Properties | Premium Real Estate in Cairo & Dubai",
+    default: "Livora Properties | Premium Real Estate in Egypt & UAE",
     template: "%s | Livora Properties",
   },
   description:
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   keywords: [
     // English Keywords
     "real estate Cairo",
+    "real estate",
     "real estate Dubai",
     "luxury properties Egypt",
     "luxury properties UAE",
@@ -46,6 +47,7 @@ export const metadata: Metadata = {
     "real estate developers Egypt",
     "real estate developers UAE",
     // Arabic Keywords
+    "عقارات",
     "عقارات القاهرة",
     "عقارات دبي",
     "عقارات فاخرة مصر",
@@ -70,7 +72,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://livora.com"), // Replace with your actual domain
+  metadataBase: new URL("http://livoraproperties.com"),
   alternates: {
     canonical: "/",
     languages: {
@@ -82,11 +84,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     alternateLocale: ["ar_EG", "ar_AE"],
-    url: "https://livora.com",
+    url: "http://livoraproperties.com",
     siteName: "Livora Properties",
-    title: "Livora Properties | Premium Real Estate in Cairo & Dubai",
+    title: "Livora Properties | Premium Real Estate in Egypt & UAE",
     description:
-      "From Cairo to Dubai — Your Real Estate Journey Starts Here. Expert real estate consultancy connecting investors with premium opportunities.",
+      "From Dubai to Cairo — Your Real Estate Journey Starts Here. Expert real estate consultancy connecting investors with premium opportunities.",
     images: [
       {
         url: "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png",
@@ -98,9 +100,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Livora Properties | Premium Real Estate in Cairo & Dubai",
+    title: "Livora Properties | Premium Real Estate in Egypt & UAE",
     description:
-      "From Cairo to Dubai — Your Real Estate Journey Starts Here. Expert real estate consultancy.",
+      "From Dubai to Cairo — Your Real Estate Journey Starts Here. Expert real estate consultancy.",
     images: [
       "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png",
     ],
