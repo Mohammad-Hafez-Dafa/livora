@@ -1,22 +1,24 @@
 export interface Property {
-  id: string
-  title: string
-  titleAr: string
-  location: string
-  locationAr: string
-  city: string
-  price: number
-  priceAr?: number
-  description: string
-  descriptionAr: string
-  images: string[]
-  features?: string[]
-  featuresAr?: string[]
-  paymentPlans?: string
-  paymentPlansAr?: string
+  id: string;
+  title: string;
+  titleAr: string;
+  location: string;
+  locationAr: string;
+  city: string;
+  cityAr?: string; 
+  price: number;
+  priceAr?: number;
+  description: string;
+  descriptionAr: string;
+  images: string[];
+  features?: string[];
+  featuresAr?: string[];
+  paymentPlans?: string;
+  paymentPlansAr?: string;
   amenities?: string[];
-  developer?: string
+  developer?: string;
   type: string;
+  typeAr?: string; 
   currency: string;
   currencyAr?: string;
   bedrooms: number;

@@ -5,7 +5,6 @@ import { useCallback, useEffect, useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-
 interface PropertyCarouselProps {
   images: string[]
   alt: string
