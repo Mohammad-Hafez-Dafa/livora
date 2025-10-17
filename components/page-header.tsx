@@ -4,7 +4,7 @@ import { useLanguage } from "@/lib/language-context";
 
 interface PageHeaderProps {
   title: string;
-  titleAr: string;
+  titleAr?: string;
   description?: string;
   descriptionAr?: string;
   backgroundImage?: string;
