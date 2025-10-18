@@ -12,10 +12,10 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { ContactFormModal } from "@/components/contact-form-modal";
 import { formatPrice } from "@/lib/format-currency";
+import { ImageGallery } from "@/components/ImageGallery";
 import type { Property } from "@/lib/types";
 
 interface PropertyDetailsClientProps {
@@ -47,87 +47,8 @@ export function PropertyDetailsClient({ property }: PropertyDetailsClientProps) 
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            {/* Image Gallery */}
-            <div className="mb-12">
-              {property.images.length === 1 && (
-                <div className="relative h-96 md:h-[500px] rounded-lg overflow-hidden">
-                  <Image
-                    src={property.images[0]}
-                    alt={title}
-                    fill
-                    className="object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              )}
-
-              {property.images.length === 2 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {property.images.map((image, index) => (
-                    <div
-                      key={index}
-                      className="relative h-80 md:h-96 rounded-lg overflow-hidden"
-                    >
-                      <Image
-                        src={image}
-                        alt={`${title} - Image ${index + 1}`}
-                        fill
-                        className="object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {property.images.length === 3 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="relative h-96 md:h-[500px] rounded-lg overflow-hidden">
-                    <Image
-                      src={property.images[0]}
-                      alt={`${title} - Main`}
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 gap-4">
-                    {property.images.slice(1, 3).map((image, index) => (
-                      <div
-                        key={index + 1}
-                        className="relative h-48 md:h-[242px] rounded-lg overflow-hidden"
-                      >
-                        <Image
-                          src={image}
-                          alt={`${title} - Image ${index + 2}`}
-                          fill
-                          className="object-cover hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {property.images.length >= 4 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {property.images.map((image, index) => (
-                    <div
-                      key={index}
-                      className={`relative ${
-                        index === 0 && property.images.length > 4
-                          ? "md:col-span-2 h-96 md:h-[500px]"
-                          : "h-64 md:h-80"
-                      } rounded-lg overflow-hidden`}
-                    >
-                      <Image
-                        src={image}
-                        alt={`${title} - Image ${index + 1}`}
-                        fill
-                        className="object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            {/* Image Gallery with Lightbox - Shows only first 3 images */}
+            <ImageGallery images={property.images} title={title} maxInitialImages={3} />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Main Content */}
