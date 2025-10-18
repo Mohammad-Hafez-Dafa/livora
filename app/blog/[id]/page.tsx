@@ -4,6 +4,7 @@ import { Calendar, Clock, ArrowLeft, Share2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
+import { use } from "react"
 
 // Mock data - in production, fetch from GitHub
 const mockPost = {
@@ -48,8 +49,15 @@ const mockPost = {
   author: "Ahmed Hassan",
 }
 
-export default function BlogPostPage({ params }: { params: { id: string } }) {
+interface BlogPostPageProps {
+  params: Promise<{ id: string }>  // ✅ غيّر من object عادي لـ Promise
+}
+
+export default function BlogPostPage({ params }: BlogPostPageProps) {
   const { language, t } = useLanguage()
+  
+  // ✅ استخدم use() hook لقراءة الـ Promise
+  const { id } = use(params)
 
   // In production, fetch post data based on id
   const post = mockPost
@@ -94,7 +102,12 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
 
           {/* Featured Image */}
           <div className="relative aspect-[16/9] rounded-lg overflow-hidden mb-12">
-            <Image src={post.image || "/placeholder.svg"} alt={title} fill className="object-cover" />
+            <Image 
+              src={post.image || "/placeholder.svg"} 
+              alt={title} 
+              fill 
+              className="object-cover" 
+            />
           </div>
 
           {/* Content */}
@@ -109,7 +122,9 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
 
           {/* CTA */}
           <div className="mt-16 p-8 bg-card rounded-lg border border-border text-center">
-            <h3 className="font-serif text-2xl font-bold mb-4">{t("Interested in Investing?", "مهتم بالاستثمار؟")}</h3>
+            <h3 className="font-serif text-2xl font-bold mb-4">
+              {t("Interested in Investing?", "مهتم بالاستثمار؟")}
+            </h3>
             <p className="text-muted-foreground mb-6">
               {t(
                 "Contact our team to learn more about investment opportunities in Cairo and Dubai",

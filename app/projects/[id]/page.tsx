@@ -1,17 +1,16 @@
-import { PropertyDetailsClient } from "@/components/property-details-client";
-import { getAllProperties, getPropertyById } from "@/lib/data-fetcher";
 import { notFound } from "next/navigation";
+import { getPropertyById, getAllProperties } from "@/lib/data-fetcher";
+import { PropertyDetailsClient } from "@/components/property-details-client";
 
 interface PropertyDetailsPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>; 
 }
 
 export default async function ProjectDetailsPage({ params }: PropertyDetailsPageProps) {
-  const property = await getPropertyById(params.id);
+  const { id } = await params; 
+  
+  const property = await getPropertyById(id);
 
-  // If property not found, show 404
   if (!property) {
     notFound();
   }
@@ -19,7 +18,7 @@ export default async function ProjectDetailsPage({ params }: PropertyDetailsPage
   return <PropertyDetailsClient property={property} />;
 }
 
-// Generate static params for all properties (optional, for static generation)
+// Generate static params
 export async function generateStaticParams() {
   const properties = await getAllProperties();
   
@@ -28,9 +27,10 @@ export async function generateStaticParams() {
   }));
 }
 
-// Generate metadata for SEO
+// Generate metadata
 export async function generateMetadata({ params }: PropertyDetailsPageProps) {
-  const property = await getPropertyById(params?.id);
+  const { id } = await params;  // ✅ await الـ Promise
+  const property = await getPropertyById(id);
 
   if (!property) {
     return {
@@ -48,3 +48,6 @@ export async function generateMetadata({ params }: PropertyDetailsPageProps) {
     },
   };
 }
+
+export const dynamic = 'force-static';
+export const revalidate = 3600;

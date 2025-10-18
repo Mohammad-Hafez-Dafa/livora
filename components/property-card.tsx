@@ -32,7 +32,9 @@ export function PropertyCard({ property }: PropertyCardProps) {
             <Badge variant="secondary" className="mb-2">
               {property.city === "cairo" ? "Cairo" : "Dubai"}
             </Badge>
-            <h3 className="font-serif text-xl font-bold mb-1">{title}</h3>
+            {/* <h3 className="font-serif text-xl font-bold mb-1">{title}</h3> */}
+                        <Link href={`/projects/${property.id}`} className="font-serif text-xl font-bold mb-1 block">{title}</Link>
+
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <MapPin className="h-4 w-4" />
               <span>{location}</span>

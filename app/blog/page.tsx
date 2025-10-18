@@ -15,11 +15,10 @@ export default function BlogPage() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <PageHeader
-        title={t("Insights & News", "رؤى وأخبار")}
-        description={t(
-              "Expert insights on real estate markets in Cairo and Dubai",
-              "رؤى الخبراء حول أسواق العقارات في القاهرة ودبي",
-            )}
+        title="Insights & News"
+        titleAr= "رؤى وأخبار"
+        description= "Expert insights on real estate markets in Cairo and Dubai"
+        descriptionAr= "رؤى الخبراء حول أسواق العقارات في القاهرة ودبي"
       />
 
       {/* Featured Post */}

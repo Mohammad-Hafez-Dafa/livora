@@ -37,8 +37,8 @@ export function Navigation() {
     { href: "/about", label: t("About Us", "من نحن") },
     { href: "/projects", label: t("Projects", "المشروعات") },
     { href: "/services", label: t("Services", "خدماتنا") },
-    { href: "/team", label: t("Our Team", "فريق العمل") },
-    { href: "/blog", label: t("Blog", "المدونة") },
+    // { href: "/team", label: t("Our Team", "فريق العمل") },
+    // { href: "/blog", label: t("Blog", "المدونة") },
     { href: "/contact", label: t("Contact", "اتصل بنا") },
   ]
 
