@@ -18,6 +18,7 @@ interface PhoneInputProps {
   helperText?: string
   className?: string
   defaultCountry?: "EG" | "AE"
+  touched?: boolean
 }
 
 const COUNTRIES = [
@@ -49,16 +50,25 @@ export function PhoneInput({
   helperText,
   className = "",
   defaultCountry = "EG",
+  touched: externalTouched = false,
 }: PhoneInputProps) {
   const { language } = useLanguage()
 
   const [error, setError] = useState<string>("")
   const [touched, setTouched] = useState(false)
+  const isTouched = externalTouched || touched
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const messages = validationMessages[language as keyof typeof validationMessages]
   const isRTL = language === "ar"
+
+  useEffect(() => {
+    if (!value) {
+      const defaultCountryObj = COUNTRIES.find((c) => c.code === defaultCountry) || COUNTRIES[0]
+      onChange(defaultCountryObj.dialCode)
+    }
+  }, [])
 
   // Get current country from phone value
   const getCurrentCountry = () => {
@@ -83,10 +93,15 @@ export function PhoneInput({
     }
   }, [isDropdownOpen])
 
-  // Validate phone number
   const validatePhone = (phone: string): boolean => {
-    if (!phone || !phone.trim()) {
-      return !required
+    // If required and phone is empty or only contains country code, it's invalid
+    if (required && (!phone || phone.trim() === "" || phone === currentCountry.dialCode)) {
+      return false
+    }
+
+    // If not required and phone is empty, it's valid
+    if (!required && (!phone || !phone.trim())) {
+      return true
     }
 
     // Check if it starts with valid country code
@@ -129,8 +144,10 @@ export function PhoneInput({
 
     if (touched) {
       const isValid = validatePhone(inputValue)
-      if (!isValid && inputValue.trim()) {
+      if (!isValid && inputValue.trim() && inputValue !== currentCountry.dialCode) {
         setError(messages.invalid)
+      } else if (!isValid && required && (inputValue === currentCountry.dialCode || !inputValue.trim())) {
+        setError(messages.required)
       } else {
         setError("")
       }
@@ -145,10 +162,10 @@ export function PhoneInput({
     setTouched(true)
     const isValid = validatePhone(value)
 
-    if (!isValid && value.trim()) {
-      setError(messages.invalid)
-    } else if (!value.trim() && required) {
+    if (!isValid && required && (value === currentCountry.dialCode || !value.trim())) {
       setError(messages.required)
+    } else if (!isValid && value.trim() && value !== currentCountry.dialCode) {
+      setError(messages.invalid)
     } else {
       setError("")
     }
@@ -158,7 +175,25 @@ export function PhoneInput({
     }
   }
 
-  const isValid = validatePhone(value) && value.trim() !== ""
+  const isValid = validatePhone(value)
+
+  useEffect(() => {
+    if (isTouched) {
+      const isValid = validatePhone(value)
+
+      if (!isValid && required && (value === currentCountry.dialCode || !value.trim())) {
+        setError(messages.required)
+      } else if (!isValid && value.trim() && value !== currentCountry.dialCode) {
+        setError(messages.invalid)
+      } else {
+        setError("")
+      }
+
+      if (onValidation) {
+        onValidation(isValid)
+      }
+    }
+  }, [isTouched, value])
 
   return (
     <div className={className} dir={isRTL ? "rtl" : "ltr"}>
@@ -194,7 +229,7 @@ export function PhoneInput({
           />
 
           {/* Validation Icon */}
-          {touched && value && (
+          {isTouched && value && value !== currentCountry.dialCode && (
             <div className={`flex-shrink-0 ${isRTL ? "mr-2" : "ml-2"}`}>
               {error ? (
                 <X className="w-5 h-5 text-destructive" />
@@ -229,7 +264,7 @@ export function PhoneInput({
       </div>
 
       {/* Error Message */}
-      {error && touched ? (
+      {error && isTouched ? (
         <p className="text-destructive text-sm mt-2 flex items-center gap-1.5">
           <X className="w-4 h-4 flex-shrink-0" />
           <span>{error}</span>

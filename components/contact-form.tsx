@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { PhoneInput } from "@/components/phone-input"
 import { useLanguage } from "@/lib/language-context"
 
@@ -22,11 +22,15 @@ interface ContactFormProps {
 }
 
 export function ContactForm({ formData, setFormData, isSubmitting, onSubmit, messageRows = 4 }: ContactFormProps) {
-  const [isPhoneValid, setIsPhoneValid] = useState(false)
+  const [isPhoneValid, setIsPhoneValid] = useState<boolean>(false)
+  const [phoneTouched, setPhoneTouched] = useState(false)
   const { language, t } = useLanguage()
   const isRTL = language === "ar"
+  const phoneInputRef = useRef<HTMLDivElement>(null)
 
   const validateAll = (): boolean => {
+    // Force phone validation on submit
+    setPhoneTouched(true)
     return isPhoneValid
   }
 
@@ -42,7 +46,7 @@ export function ContactForm({ formData, setFormData, isSubmitting, onSubmit, mes
     <form onSubmit={handleSubmit} className="space-y-4 mt-4" dir={isRTL ? "rtl" : "ltr"}>
       {/* Name Field */}
       <div>
-        <Label htmlFor="name">{t( "Full Name", "الاسم الكامل" )}</Label>
+        <Label htmlFor="name">{t( "Full Name",  "الاسم الكامل" )}</Label>
         <Input
           id="name"
           type="text"
@@ -54,24 +58,27 @@ export function ContactForm({ formData, setFormData, isSubmitting, onSubmit, mes
       </div>
 
       {/* Phone Field - Using PhoneInput with Styling */}
-      <PhoneInput
-        id="phone"
-        label={t("Phone Number",  "رقم الهاتف")}
-        value={formData.phone}
-        onChange={(value) => setFormData({ ...formData, phone: value || "" })}
-        onValidation={setIsPhoneValid}
-        disabled={isSubmitting}
-        required
-        defaultCountry="EG"
-        helperText={t(
-         "Please enter a mobile phone number with country code",
-          "يرجى إدخال رقم هاتف محمول مع رمز الدولة",
-        )}
-      />
+      <div ref={phoneInputRef}>
+        <PhoneInput
+          id="phone"
+          label={t( "Phone Number",  "رقم الهاتف" )}
+          value={formData.phone}
+          onChange={(value) => setFormData({ ...formData, phone: value || "" })}
+          onValidation={setIsPhoneValid}
+          disabled={isSubmitting}
+          required
+          defaultCountry="EG"
+          touched={phoneTouched}
+          helperText={t(
+             "Please enter a mobile phone number with country code",
+             "يرجى إدخال رقم هاتف محمول مع رمز الدولة",
+          )}
+        />
+      </div>
 
       {/* Message Field */}
       <div>
-        <Label htmlFor="message">{t( "Message", "الرسالة" )}</Label>
+        <Label htmlFor="message">{t( "Message",  "الرسالة" )}</Label>
         <Textarea
           id="message"
           rows={messageRows}
@@ -81,13 +88,13 @@ export function ContactForm({ formData, setFormData, isSubmitting, onSubmit, mes
           className="mt-2"
         />
         <p className={`text-sm text-muted-foreground mt-1 ${isRTL ? "text-right" : "text-left"}`}>
-          {formData.message.length}/1000 {t("characters", "أحرف")}
+          {formData.message.length}/1000 {t( "characters",  "أحرف" )}
         </p>
       </div>
 
       {/* Submit Button */}
       <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? t( "Sending...",  "جاري الإرسال..." ) : t( "Send Message",  "إرسال الرسالة")}
+        {isSubmitting ? t( "Sending...",  "جاري الإرسال..." ) : t( "Send Message",  "إرسال الرسالة" )}
       </Button>
     </form>
   )
