@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { PhoneInput } from "@/components/phone-input"
+import { useLanguage } from "@/lib/language-context"
 
 interface ContactFormProps {
   formData: {
@@ -20,74 +21,15 @@ interface ContactFormProps {
   messageRows?: number
 }
 
-interface ValidationErrors {
-  name?: string
-  message?: string
-}
-
 export function ContactForm({ formData, setFormData, isSubmitting, onSubmit, messageRows = 4 }: ContactFormProps) {
-  const [errors, setErrors] = useState<ValidationErrors>({})
-  const [touched, setTouched] = useState<Record<string, boolean>>({})
   const [isPhoneValid, setIsPhoneValid] = useState(false)
+  const { language, t } = useLanguage()
+  const isRTL = language === "ar"
 
-  // Validation functions
-  const validateName = (name: string): string | undefined => {
-    if (!name.trim()) {
-      return "Name is required"
-    }
-    if (name.trim().length < 2) {
-      return "Name must be at least 2 characters"
-    }
-    if (name.trim().length > 100) {
-      return "Name must not exceed 100 characters"
-    }
-    return undefined
-  }
-
-  const validateMessage = (message: string): string | undefined => {
-    if (!message.trim()) {
-      return "Message is required"
-    }
-    if (message.trim().length < 10) {
-      return "Message must be at least 10 characters"
-    }
-    if (message.trim().length > 1000) {
-      return "Message must not exceed 1000 characters"
-    }
-    return undefined
-  }
-
-  // Validate all fields
   const validateAll = (): boolean => {
-    const newErrors: ValidationErrors = {
-      name: validateName(formData.name),
-      message: validateMessage(formData.message),
-    }
-
-    setErrors(newErrors)
-    setTouched({ name: true, phone: true, message: true })
-
-    return !newErrors.name && !newErrors.message && isPhoneValid
+    return isPhoneValid
   }
 
-  // Handle field blur
-  const handleBlur = (field: keyof ValidationErrors) => {
-    setTouched({ ...touched, [field]: true })
-
-    let error: string | undefined
-    switch (field) {
-      case "name":
-        error = validateName(formData.name)
-        break
-      case "message":
-        error = validateMessage(formData.message)
-        break
-    }
-
-    setErrors({ ...errors, [field]: error })
-  }
-
-  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -96,86 +38,56 @@ export function ContactForm({ formData, setFormData, isSubmitting, onSubmit, mes
     }
   }
 
-  // Handle field change with real-time validation
-  const handleChange = (field: keyof ValidationErrors, value: string) => {
-    setFormData({ ...formData, [field]: value })
-
-    // Only show errors if field has been touched
-    if (touched[field]) {
-      let error: string | undefined
-      switch (field) {
-        case "name":
-          error = validateName(value)
-          break
-        case "message":
-          error = validateMessage(value)
-          break
-      }
-      setErrors({ ...errors, [field]: error })
-    }
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+    <form onSubmit={handleSubmit} className="space-y-4 mt-4" dir={isRTL ? "rtl" : "ltr"}>
       {/* Name Field */}
       <div>
-        <Label htmlFor="name">Full Name</Label>
+        <Label htmlFor="name">{t( "Full Name", "الاسم الكامل" )}</Label>
         <Input
           id="name"
           type="text"
           value={formData.name}
-          onChange={(e) => handleChange("name", e.target.value)}
-          onBlur={() => handleBlur("name")}
-          className={`mt-2 ${errors.name && touched.name ? "border-destructive" : ""}`}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           disabled={isSubmitting}
-          aria-invalid={errors.name && touched.name ? "true" : "false"}
-          aria-describedby={errors.name && touched.name ? "name-error" : undefined}
+          className="mt-2"
         />
-        {errors.name && touched.name && (
-          <p id="name-error" className="text-destructive text-sm mt-1">
-            {errors.name}
-          </p>
-        )}
       </div>
 
       {/* Phone Field - Using PhoneInput with Styling */}
       <PhoneInput
         id="phone"
-        label="Phone Number"
+        label={t("Phone Number",  "رقم الهاتف")}
         value={formData.phone}
         onChange={(value) => setFormData({ ...formData, phone: value || "" })}
         onValidation={setIsPhoneValid}
         disabled={isSubmitting}
         required
         defaultCountry="EG"
-        helperText="Please enter a mobile phone number with country code"
+        helperText={t(
+         "Please enter a mobile phone number with country code",
+          "يرجى إدخال رقم هاتف محمول مع رمز الدولة",
+        )}
       />
 
       {/* Message Field */}
       <div>
-        <Label htmlFor="message">Message</Label>
+        <Label htmlFor="message">{t( "Message", "الرسالة" )}</Label>
         <Textarea
           id="message"
           rows={messageRows}
           value={formData.message}
-          onChange={(e) => handleChange("message", e.target.value)}
-          onBlur={() => handleBlur("message")}
-          className={`mt-2 ${errors.message && touched.message ? "border-destructive" : ""}`}
+          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           disabled={isSubmitting}
-          aria-invalid={errors.message && touched.message ? "true" : "false"}
-          aria-describedby={errors.message && touched.message ? "message-error" : undefined}
+          className="mt-2"
         />
-        {errors.message && touched.message && (
-          <p id="message-error" className="text-destructive text-sm mt-1">
-            {errors.message}
-          </p>
-        )}
-        <p className="text-sm text-muted-foreground mt-1">{formData.message.length}/1000 characters</p>
+        <p className={`text-sm text-muted-foreground mt-1 ${isRTL ? "text-right" : "text-left"}`}>
+          {formData.message.length}/1000 {t("characters", "أحرف")}
+        </p>
       </div>
 
       {/* Submit Button */}
       <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? "Sending..." : "Send Message"}
+        {isSubmitting ? t( "Sending...",  "جاري الإرسال..." ) : t( "Send Message",  "إرسال الرسالة")}
       </Button>
     </form>
   )
