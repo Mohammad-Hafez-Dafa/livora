@@ -5,18 +5,21 @@ import "./globals.css";
 import { LanguageProvider } from "@/lib/language-context";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 
 const urbanist = Urbanist({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-urbanist",
+  display: "swap", // ✅ أضف display swap لتحسين الأداء
 });
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-cairo",
+  display: "swap", // ✅ أضف display swap
 });
 
 export const metadata: Metadata = {
@@ -28,14 +31,17 @@ export const metadata: Metadata = {
     "From Dubai to Cairo — Your Real Estate Journey Starts Here. Expert real estate consultancy connecting investors with premium opportunities in Egypt and UAE.",
   keywords: [
     // English Keywords
+    "Livora",
+    "Livora Properties",
+    "Livora Real Estate",
     "real estate Cairo",
-    "real estate",
     "real estate Dubai",
     "luxury properties Egypt",
     "luxury properties UAE",
     "villas for sale Cairo",
     "apartments for sale Dubai",
-    "real estate investment",
+    "real estate investment Egypt",
+    "real estate investment Dubai",
     "property consultancy",
     "Cairo real estate agency",
     "Dubai real estate agency",
@@ -47,6 +53,8 @@ export const metadata: Metadata = {
     "real estate developers Egypt",
     "real estate developers UAE",
     // Arabic Keywords
+    "ليفورا",
+    "ليفورا العقارية",
     "عقارات",
     "عقارات القاهرة",
     "عقارات دبي",
@@ -72,11 +80,11 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("http://livoraproperties.com"),
+  metadataBase: new URL("https://livoraproperties.com"), // ✅ غيّر لـ https
   alternates: {
     canonical: "/",
     languages: {
-      "en-US": "/en",
+      "en-US": "/",
       "ar-EG": "/ar",
     },
   },
@@ -84,7 +92,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     alternateLocale: ["ar_EG", "ar_AE"],
-    url: "http://livoraproperties.com",
+    url: "https://livoraproperties.com",
     siteName: "Livora Properties",
     title: "Livora Properties | Premium Real Estate in Egypt & UAE",
     description:
@@ -94,7 +102,7 @@ export const metadata: Metadata = {
         url: "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png",
         width: 1200,
         height: 630,
-        alt: "Livora Properties - Luxury Real Estate",
+        alt: "Livora Properties - Luxury Real Estate in Cairo and Dubai",
       },
     ],
   },
@@ -106,7 +114,7 @@ export const metadata: Metadata = {
     images: [
       "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png",
     ],
-    creator: "@livora", // Replace with your actual Twitter handle
+    creator: "@livora",
   },
   robots: {
     index: true,
@@ -121,33 +129,19 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      {
-        url: "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png",
-      },
-      {
-        url: "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png",
-        sizes: "16x16",
-        type: "image/png",
-      },
-      {
-        url: "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png",
-        sizes: "32x32",
-        type: "image/png",
-      },
+      { url: "/favicon.ico", sizes: "any" }, // ✅ أضف favicon.ico
+      { url: "/icon.png", type: "image/png", sizes: "32x32" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
     ],
-    shortcut:
-      "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png",
-    apple: {
-      url: "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png",
-      sizes: "180x180",
-      type: "image/png",
-    },
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   manifest: "/site.webmanifest",
   verification: {
-    google: "your-google-verification-code", // Add your Google Search Console verification
-    // yandex: "your-yandex-verification-code",
-    // bing: "your-bing-verification-code",
+    google: "your-google-verification-code", // ✅ هتحط الكود الحقيقي من Google Search Console
   },
 };
 
@@ -157,30 +151,141 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${urbanist.variable} ${cairo.variable} antialiased`}>
+    <html
+      lang="en"
+      className={`${urbanist.variable} ${cairo.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        {/* Additional meta tags for Arabic support */}
-        <meta httpEquiv="Content-Language" content="en, ar" />
-        <meta name="language" content="English, Arabic" />
-
-        {/* Geo Tags */}
-        <meta name="geo.region" content="EG" />
-        <meta name="geo.placename" content="Cairo" />
-        <meta name="geo.region" content="AE" />
-        <meta name="geo.placename" content="Dubai" />
-
-        {/* Business Information */}
-        <meta
-          property="business:contact_data:street_address"
-          content="Cairo & Dubai"
+        {/* Schema.org Structured Data - Organization */}
+        <Script
+          id="schema-org-organization"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "RealEstateAgent",
+              "@id": "https://livoraproperties.com/#organization",
+              name: "Livora Properties",
+              alternateName: ["Livora Real Estate", "ليفورا العقارية"],
+              url: "https://livoraproperties.com",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://res.cloudinary.com/dd1bi4lzz/image/upload/v1760106292/PNG-2_epejtw.png",
+                width: 1200,
+                height: 630,
+              },
+              description:
+                "Expert real estate consultancy connecting investors with premium opportunities in Egypt and UAE",
+              telephone: ["+20 10 55 11 99 27", "+971 54 2522 769"],
+              email: "Info@livoraproperties.com",
+              address: [
+                {
+                  "@type": "PostalAddress",
+                  addressLocality: "Cairo",
+                  addressCountry: "EG",
+                },
+                {
+                  "@type": "PostalAddress",
+                  addressLocality: "Dubai",
+                  addressCountry: "AE",
+                },
+              ],
+              areaServed: [
+                {
+                  "@type": "City",
+                  name: "Cairo",
+                },
+                {
+                  "@type": "City",
+                  name: "Dubai",
+                },
+                {
+                  "@type": "Country",
+                  name: "Egypt",
+                },
+                {
+                  "@type": "Country",
+                  name: "United Arab Emirates",
+                },
+              ],
+              sameAs: [
+                // ✅ أضف روابط السوشيال ميديا
+                "https://www.facebook.com/livoraproperties",
+                "https://www.instagram.com/livora_properties",
+                "https://www.linkedin.com/company/livora-properties",
+                "https://twitter.com/livora",
+              ],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Real Estate Properties",
+                itemListElement: [
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Product",
+                      name: "Luxury Villas",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Product",
+                      name: "Premium Apartments",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Product",
+                      name: "Penthouses",
+                    },
+                  },
+                ],
+              },
+            }),
+          }}
         />
-        <meta property="business:contact_data:locality" content="Cairo" />
-        <meta property="business:contact_data:region" content="Egypt" />
-        <meta property="business:contact_data:country_name" content="Egypt" />
+
+        {/* Schema.org - WebSite */}
+        <Script
+          id="schema-org-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "@id": "https://livoraproperties.com/#website",
+              url: "https://livoraproperties.com",
+              name: "Livora Properties",
+              description:
+                "Premium Real Estate in Egypt & UAE - From Dubai to Cairo",
+              publisher: {
+                "@id": "https://livoraproperties.com/#organization",
+              },
+              inLanguage: ["en", "ar"],
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate:
+                    "https://livoraproperties.com/projects?search={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
+
+        {/* Additional Language Support */}
+        <link rel="alternate" hrefLang="en" href="https://livoraproperties.com" />
+        <link rel="alternate" hrefLang="ar" href="https://livoraproperties.com/ar" />
+        <link rel="alternate" hrefLang="x-default" href="https://livoraproperties.com" />
       </head>
-      <body>
+
+      <body className="antialiased">
         <LanguageProvider>
-          <Analytics/>
+          <Analytics />
           <Navigation />
           {children}
           <Footer />

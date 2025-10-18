@@ -1,0 +1,12 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin or private areas (if any)
+# Disallow: /admin/
+
+# Crawl delay
+Crawl-delay: 0
+
+# Sitemap location
+Sitemap: https://livoraproperties.com/sitemap.xml
